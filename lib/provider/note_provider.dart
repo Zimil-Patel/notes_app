@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 
 import '../model/note_model.dart';
 import '../services/database_service.dart';
-import '../utils/constants.dart';
 
 class NoteProvider with ChangeNotifier {
   List<NoteModel> _notes = [];
@@ -35,10 +34,8 @@ class NoteProvider with ChangeNotifier {
   }
 
   //  ADD NOTE
-  Future<void> addNote() async {
-    if(txtTitle.text.isNotEmpty && txtNote.text.isNotEmpty){
-      final title = txtTitle.text;
-      final note = txtNote.text;
+  Future<void> addNote(String title,String note) async {
+    if(title.isNotEmpty && note.isNotEmpty){
       final dateTime = DateTime.now();
       final date = DateFormat.yMMMd().format(dateTime);
       final time = DateFormat.jm().format(dateTime);
@@ -49,8 +46,8 @@ class NoteProvider with ChangeNotifier {
       await DatabaseService.databaseService.insertRecord(noteModel);
 
       getAllNotes();
-      txtTitle.clear();
-      txtNote.clear();
+      // txtTitle.clear();
+      // txtNote.clear();
     }
   }
 
@@ -61,9 +58,9 @@ class NoteProvider with ChangeNotifier {
   }
 
   //  UPDATE NOTE
-  Future<void> updateNote(NoteModel model) async {
-    final title = txtTitle.text;
-    final note = txtNote.text;
+  Future<void> updateNote(NoteModel model, String title, note) async {
+    model.title = title;
+    model.note = note;
     model.title = title;
     model.note = note;
 
