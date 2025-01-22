@@ -73,7 +73,7 @@ class DatabaseService {
 
     try {
       final result = await db.rawQuery(query);
-      log("Result: $result");
+      log("notes fetched ------------");
       return result;
     } catch (e) {
       log("Failed to fetch database ---------");

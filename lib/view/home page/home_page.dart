@@ -1,54 +1,76 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:notes_app/provider/note_provider.dart';
 import 'package:notes_app/utils/constants.dart';
 import 'package:provider/provider.dart';
+import '../../model/note_model.dart';
+import 'components/custom_text_field.dart';
+import 'components/note_list_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    log("Home building -----------------");
+    log("Home building --------------");
 
     return Scaffold(
-      // APPBAR
+      resizeToAvoidBottomInset: true,
       appBar: _buildHomeAppBar(context),
-
-      // BODY
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // NOTES LIST
-          Consumer<NoteProvider>(builder: (context, provider, child) {
+          SizedBox(height: 18),
+          // Title text field
+          CustomTextField(
+            hintText: 'Add title',
+            icon: Icons.edit,
+            controller: txtTitle,
+          ),
 
-            log("ListView building -------");
+          // Note text field
+          CustomTextField(
+            hintText: 'Add note',
+            icon: Icons.edit_note_rounded,
+            controller: txtNote,
+            maxLine: 4,
+          ),
+          SizedBox(height: 18),
+          // SAVED NOTE TITLE
+          Padding(
+            padding:
+                const EdgeInsets.only(left: defPadding * 1.4, bottom: 10),
+            child: Text(
+              'Saved Notes',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
 
-            return Expanded(
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                children: List.generate(
-                  provider.notes.length,
-                  (index) {
-                    return _buildNote(context: context);
-                  },
-                ),
-              ),
-            );
-          }),
+          // SAVED NOTE VIEW
+          Expanded(
+            child: Selector<NoteProvider, List<NoteModel>>(
+              selector: (context, provider) => provider.notes,
+              builder: (context, noteList, child) {
+                log("ListView building -------");
+                return NotesListView(noteList: noteList);
+              },
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-// home app bar
+// Home app bar
 AppBar _buildHomeAppBar(BuildContext context) {
   return AppBar(
     centerTitle: false,
     backgroundColor: Colors.transparent,
-    title: Text('Note Manager'),
+    title: Text(
+      'Notes Manager',
+      style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.034),
+    ),
     actions: [
       IconButton(
         onPressed: () async {
@@ -57,35 +79,5 @@ AppBar _buildHomeAppBar(BuildContext context) {
         icon: Icon(Icons.note_add_outlined),
       ),
     ],
-  );
-}
-
-// Note card
-_buildNote({required BuildContext context}) {
-  return Card(
-    color: Theme.of(context).colorScheme.secondary,
-    margin: EdgeInsets.all(defPadding),
-    child: ListTile(
-      leading: Icon(Icons.note_alt_outlined),
-
-      // title
-      title: Text('Title'),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // note
-          Text('note'),
-
-          // created date
-          Text('22 Jan 25'),
-
-          // created time
-          Text('10:00 AM'),
-        ],
-      ),
-
-      // delete note icon
-      trailing: Icon(Icons.delete_outline_rounded),
-    ),
   );
 }
