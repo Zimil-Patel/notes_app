@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/note_provider.dart';
-import '../home page/components/custom_text_field.dart';
+import 'components/custom_text_field.dart';
 
 class NoteAddPage extends StatelessWidget {
   const NoteAddPage({super.key});
