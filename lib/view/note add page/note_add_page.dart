@@ -10,8 +10,8 @@ class NoteAddPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var _txtTitle = TextEditingController();
-    var _txtNote = TextEditingController();
+    var txtTitle = TextEditingController();
+    var txtNote = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -27,23 +27,23 @@ class NoteAddPage extends StatelessWidget {
           CustomTextField(
             hintText: 'Add title',
             icon: Icons.edit,
-            controller: _txtTitle,
+            controller: txtTitle,
           ),
 
           // Note text field
           CustomTextField(
             hintText: 'Add note',
             icon: Icons.edit_note_rounded,
-            controller: _txtNote,
+            controller: txtNote,
             maxLine: 4,
           ),
 
           // add button
           ElevatedButton(
             onPressed: () async {
-              await context.read<NoteProvider>().addNote(_txtTitle.text, _txtNote.text);
-              _txtTitle.clear();
-              _txtNote.clear();
+              await context.read<NoteProvider>().addNote(txtTitle.text, txtNote.text);
+              txtTitle.clear();
+              txtNote.clear();
             },
             child: Text('Add note'),
           ),

@@ -23,7 +23,7 @@ class DatabaseService {
 
   Future<Database> get database async {
     if (_database != null) {
-      log("Using existing database ----------");
+      // log("Using existing database ----------");
       return _database!;
     } else {
       log("Creating database ----------");

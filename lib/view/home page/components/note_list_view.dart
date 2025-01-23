@@ -36,6 +36,7 @@ Widget _buildNote({
 }) {
   return Card(
     color: Theme.of(context).colorScheme.secondary,
+    elevation: 10,
     margin: EdgeInsets.all(8.0),
     child: ListTile(
       leading: Icon(Icons.note_alt_outlined),

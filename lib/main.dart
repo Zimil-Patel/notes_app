@@ -12,19 +12,18 @@ Future<void> main() async {
   runApp(NoteManager());
 }
 
-
 class NoteManager extends StatelessWidget {
   const NoteManager({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    return ChangeNotifierProvider(create: (context) => NoteProvider(),
-    child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
-      home: HomePage(),
-    ),
+    return ChangeNotifierProvider.value(
+      value: NoteProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.darkTheme,
+        home: HomePage(),
+      ),
     );
   }
 }
