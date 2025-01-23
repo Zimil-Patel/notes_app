@@ -17,6 +17,7 @@ class NotesListView extends StatelessWidget {
     // log("NotesListView building ----------");
 
     return ListView.builder(
+      shrinkWrap: true,
       padding: EdgeInsets.symmetric(horizontal: defPadding / 1.2),
       physics: BouncingScrollPhysics(),
       itemCount: noteList.length,

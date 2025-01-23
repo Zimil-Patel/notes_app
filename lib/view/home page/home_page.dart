@@ -33,14 +33,12 @@ class HomePage extends StatelessWidget {
           ),
 
           // SAVED NOTE VIEW
-          Expanded(
-            child: Selector<NoteProvider, List<NoteModel>>(
-              selector: (context, provider) => provider.notes,
-              builder: (context, noteList, child) {
-                log("ListView building -------");
-                return NotesListView(noteList: noteList);
-              },
-            ),
+          Selector<NoteProvider, List<NoteModel>>(
+            selector: (context, provider) => provider.notes,
+            builder: (context, noteList, child) {
+              log("ListView building -------");
+              return NotesListView(noteList: noteList);
+            },
           ),
         ],
       ),
